@@ -12,7 +12,7 @@ bool isWin(char* spell, int* frequency) {
 
 
 
-char* easy(char last&, char*** dictionary){}
+char* easy(char last, char*** dictionary){}
 char* medium(char last, char*** dictionary){}
 char* Mindscape_Mastery(char last, char*** dictionary){}
 
