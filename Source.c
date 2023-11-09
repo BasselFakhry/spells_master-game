@@ -1,10 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "Header.h"
 
-bool isWin(char* spell, char*** dictionary) {
+bool isWin(char* spell, int* frequency) {
 	int last = sizeof(spell) / sizeof(char);
 	int loc = spell[last - 1] - 'a';
-	if (dictionary[loc] == '')
+	if (frequency[loc] == 0)
 		return true;
 	else
 		false;
@@ -12,9 +12,9 @@ bool isWin(char* spell, char*** dictionary) {
 
 
 
-char* easy(char& last, char*** dictionary){}
-char* medium(char& last, char*** dictionary){}
-char* Mindscape_Mastery(char& last, char*** dictionary){}
+char* easy(char last&, char*** dictionary){}
+char* medium(char last, char*** dictionary){}
+char* Mindscape_Mastery(char last, char*** dictionary){}
 
 
 
@@ -63,11 +63,10 @@ int main()
 	//---------------------------------------------------------------------------------------------------------------------- -
 
 	char p1[20]; // Player 1 name
-	char p2[20]; // Player 2 name
-	printf("player_1 please enter your name: ");
+
+	printf("please enter your name : ");
 	scanf("%s", &p1, 20);
-	printf("player_2 please enter your name: ");
-	scanf("%s", &p2, 20);
+	
 	printf("These are the spells that you may use during the game: \n");
 	int count = 0;
 	for (int i = 0; i < 26; i++)
@@ -87,7 +86,7 @@ int main()
 
 	// a fair way to choose which player will start
 
-	printf("\nWe will roll a die, if the number obtained is even %s will start otherwise %s will begin.\n", p1, p2);
+	printf("\nWe will roll a die, if the number obtained is even you will start otherwise the bot will begin.\n");
 	srand(time(NULL));
 	int random = (rand() % 6) + 1;
 	int s;
@@ -98,7 +97,7 @@ int main()
 	}
 	else
 	{
-		printf("The number obtained is %d, %s will start\n", random, p2);
+		printf("The number obtained is %d, bot will start\n", random);
 		s = 1;
 	}
 
@@ -116,17 +115,17 @@ int main()
 		}
 		else
 		{
-			printf("%s chooses: ", p2);
-			scanf("%s", &w);
+			printf("%bot chooses: ");
+			strcpy(w,easy(condition,map));
 		}
 
 		// if a player choosed a spell that don't start with last letter of the previous spell
 		if (start != 0 && w[0] != condition)
 		{
 			if (s == 0)
-				printf("%s wins (%s choosed a wrong spell)", p2, p1);
+				printf("bot wins (you choosed a wrong spell)");
 			else
-				printf("%s wins (%s choosed a wrong spell)", p1, p2);
+				printf("You won (bot choosed a wrong spell)");
 			goto done;
 		}
 		int location = (int)w[0] - 'a'; // Searching for the location of the spell in the map
@@ -144,9 +143,9 @@ int main()
 			if (frequency[(int)w[strlen(w) - 1] - 'a'] == 0)
 			{				// if there is no more spells start with last letter of the current spell
 				if (s == 0) // the player that dislayed the current spell wins
-					printf("%s wins (no more spells in the list that satisfy the character matching condition)", p1);
+					printf("You won (no more spells in the list that satisfy the character matching condition)");
 				else
-					printf("%s wins (no more spells in the list that satisfy the character matching condition)", p2);
+					printf("Bot won (no more spells in the list that satisfy the character matching condition)");
 				frequency[location]--;
 				goto done;
 			}
@@ -182,16 +181,16 @@ int main()
 				{
 					// Found the spell in the used map
 					if (s == 0)
-						printf("%s wins (%s repeated a previously cast spell)", p2, p1);
+						printf("Bot won (you repeated a previously cast spell)");
 					else
-						printf("%s wins (%s repeated a previously cast spell)", p1, p2);
+						printf("You won (bot repeated a previously cast spell)");
 					goto done;
 				}
 			}
 			if (s == 0) // if the spell isn't in the used map so the spell isn't available
-				printf("%s wins (%s casted a spell that is not available)", p2, p1);
+				printf("Bot won (you casted a spell that is not available)");
 			else
-				printf("%s wins (%s casted a spell that is not available)", p1, p2);
+				printf("You won (bot casted a spell that is not available)");
 			goto done;
 		}
 
