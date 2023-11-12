@@ -14,29 +14,16 @@ bool isWin(char* spell, int* frequency) {
 
 char* easy(char first, char*** map, int* freq) {
     int max = 0;
-    int checked[26] = {0};
-    int target = (int)(first) - 'a';
+    int target = (int)(first) - 'a';	//index of our letter in the freq array
     char* result = NULL;
+	int size_of_first = freq[target];	//number of words starting with this letter
 
-    for (int i = 0; i < 26; i++) {		//searching for the letter with the highest frequence to check if we can provide a wrod that ends in this letter to make it easier for the player to choose by giving him the most available choices
-        if (freq[i] > max && checked[i] == 0) {
-            max = i;
-            checked[i] = 1;		// change to 1 indicating that it was visited 
-        }
-
-        char** test = map[target];		// take the array of words at the index of the letter I need to start my word with
-        int test_size = freq[target];		// get the number of words 
-
-        for (int j = 0; j < test_size; j++) {
-            char* word = test[j];		// take the word we need to check its last letter 	 
-            int size = strlen(word);	// get the length of the word
-
-            if (word[size - 1] - 'a' == max) {		// check if the last letter of this word is the letter of the highest frequency I got before
-                result = (char*)malloc((size + 1) * sizeof(char));
-                strcpy(result, word);
-                return result;
-            }
-        }
+    for (int i = 0; i < size_of_first; i++) {	//searching for the letter with the highest frequence to check if we can provide a wrod that ends in this letter to make it easier for the player to choose by giving him the most available choices
+		
+		if(freq[strlen(map[target][i])-1] > max){
+			result = (char*)malloc(sizeof(map[target][i]));
+			strcpy(result,map[target][i]);
+		}
     }
     return result;
 }
