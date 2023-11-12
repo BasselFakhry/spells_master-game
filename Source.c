@@ -43,8 +43,19 @@ char* easy(char first, char*** map, int* freq) {
 
 
 
+char* medium(char last, char*** dictionary, int *freq){
+	for (int i = 0; i <freq[(int)last - 'a'] ; i++)           //searching if there is a word that if the bot use it will directly win.(ie: the last character of it has a frequency 0)
+	{
+		if (isWin(dictionary[(int) last - 'a'][i], freq))     //now we are using the "isWin" function to see if there exist such a word
+		{
+			return dictionary[(int)last - 'a'][i];            // if yes, then return this word
+		}
+	}
+	return dictionary[(int)last - 'a'][(rand() % freq[(int)last - 'a']) + 1];  // if no, then choose a random word
+}
 
-char* medium(char last, char*** dictionary){}
+
+
 char* Mindscape_Mastery(char last, char*** dictionary){}
 
 
