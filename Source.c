@@ -20,7 +20,16 @@ char* easy(char first, char*** map, int* freq) {
 
     for (int i = 0; i < size_of_first; i++) {	//searching for the letter with the highest frequence to check if we can provide a wrod that ends in this letter to make it easier for the player to choose by giving him the most available choices
 		
+		if(isWin(map[target][i],freq)){
+			result = (char*)malloc(sizeof(map[target][i]));
+			strcpy(result,map[target][i]);
+			return result;
+		}
+
+
+
 		if(freq[strlen(map[target][i])-1] > max){
+			max = freq[strlen(map[target][i])-1];
 			result = (char*)malloc(sizeof(map[target][i]));
 			strcpy(result,map[target][i]);
 		}
