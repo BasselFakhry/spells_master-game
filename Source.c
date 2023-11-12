@@ -13,7 +13,7 @@ bool isWin(char* spell, int* frequency) {
 
 
 char* easy(char first, char*** map, int* freq) {
-    int max = -1;
+    int max = 0;
     int checked[26] = {0};
     int target = (int)(first) - 'a';
     char* result = NULL;
