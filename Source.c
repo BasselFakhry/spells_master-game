@@ -12,10 +12,40 @@ bool isWin(char* spell, int* frequency) {
 
 
 
-char* easy(char last, char*** dictionary){}
+char* easy(char first, char*** map, int* freq) {
+    int max = -1;
+    int checked[26] = {0};
+    int target = (int)(first) - 'a';
+    char* result = NULL;
+
+    for (int i = 0; i < 26; i++) {		//searching for the letter with the highest frequence to check if we can provide a wrod that ends in this letter to make it easier for the player to choose by giving him the most available choices
+        if (freq[i] > max && checked[i] == 0) {
+            max = i;
+            checked[i] = 1;		// change to 1 indicating that it was visited 
+        }
+
+        char** test = map[target];		// take the array of words at the index of the letter I need to start my word with
+        int test_size = freq[target];		// get the number of words 
+
+        for (int j = 0; j < test_size; j++) {
+            char* word = test[j];		// take the word we need to check its last letter 	 
+            int size = strlen(word);	// get the length of the word
+
+            if (word[size - 1] - 'a' == max) {		// check if the last letter of this word is the letter of the highest frequency I got before
+                result = (char*)malloc((size + 1) * sizeof(char));
+                strcpy(result, word);
+                return result;
+            }
+        }
+    }
+    return result;
+}
+
+
+
+
 char* medium(char last, char*** dictionary){}
 char* Mindscape_Mastery(char last, char*** dictionary){}
-
 
 
 
