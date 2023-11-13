@@ -1,0 +1,33 @@
+bool isWin(char* spell, int* frequency)
+requires:
+  a string spell that exists in the map, frequency array being related to the map
+effects:
+  returns true if the spell is played by the bot guarantees the bot a win, false otherwise
+
+bool isLoss(char* spell, int* frequency, char*** dictionary)
+requires:
+  a string spell that exists in the map, frequency array being related to the map, and the main map of the program
+effects:
+  returns true if the bot might lose after diplaying this spell after one round
+
+int evaluate(char* spell, int* frequency, char*** dictionary)
+requires:
+    a string spell that exists in the map, frequency array being related to the map, and the main map of the program
+effects:
+  returns an int that evaluates the chances of win for the spell for one round
+
+int* reshape_freq(int* frequency, int i)
+requires:
+    the main frequency array of the program, 0<=i<26
+effects:
+  returns a new updated frequency array after using a spell
+
+
+char* hard(char condition, int* freq, char*** dict)
+requires:
+   a char that represents the last letter in the spell displayed by the opponent frequency array being related to the map,
+   and the main map of the program
+effects:
+  returns the best spell having the best chances for 2 rounds to be displayed after the opponent playing a spell
+  that ends with condition char
+
