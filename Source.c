@@ -99,14 +99,25 @@ char* easy(char first, char*** map, int* freq) {
 	return result;
 } 
 char* medium(char last, char*** dictionary, int* freq) {
-	for (int i = 0; i < freq[(int)last - 'a']; i++)           //searching if there is a word that if the bot use it will directly win.(ie: the last character of it has a frequency 0)
-	{
-		if (isWin(dictionary[(int)last - 'a'][i], freq))     //now we are using the "isWin" function to see if there exist such a word
-		{
-			return dictionary[(int)last - 'a'][i];            // if yes, then return this word
+	int t = condition - 'a';
+	char* s;
+	int pow[50] = { 0 };
+	for (int i = 0; i < freq[t]; i++) {
+		if (isWin(dict[t][i],freq)) {
+			s = (char*)malloc(sizeof(dict[t][i]));
+			strcpy(s, dict[t][i]);
+			return s;
 		}
+		pow[i] += evaluate(dict[t][i], reshape_freq(freq, t), dict);
 	}
-	return dictionary[(int)last - 'a'][(rand() % freq[(int)last - 'a']) + 1];  // if no, then choose a random word
+	int max = 0;
+	for (int i = 0; i < freq[t]; i++) {
+		if (pow[i] > pow[max])
+			max = i;
+	}
+	s = (char*)malloc(sizeof(dict[t][max]));
+	strcpy(s, dict[t][max]);
+	return s;
 }
 
 
