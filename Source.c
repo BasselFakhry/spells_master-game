@@ -98,26 +98,30 @@ char* easy(char first, char*** map, int* freq) {
 	}
 	return result;
 } 
-char* medium(char last, char*** dictionary, int* freq) {
-	int t = condition - 'a';
-	char* s;
-	int pow[50] = { 0 };
-	for (int i = 0; i < freq[t]; i++) {
-		if (isWin(dict[t][i],freq)) {
-			s = (char*)malloc(sizeof(dict[t][i]));
-			strcpy(s, dict[t][i]);
-			return s;
-		}
-		pow[i] += evaluate(dict[t][i], reshape_freq(freq, t), dict);
-	}
-	int max = 0;
-	for (int i = 0; i < freq[t]; i++) {
-		if (pow[i] > pow[max])
-			max = i;
-	}
-	s = (char*)malloc(sizeof(dict[t][max]));
-	strcpy(s, dict[t][max]);
-	return s;
+char *medium(char last, char ***dict, int *freq)
+{
+    int t = last - 'a';
+    char *s;
+    int pow[50] = {0}; // score array
+    for (int i = 0; i < freq[t]; i++)
+    {
+        if (isWin(dict[t][i], freq)) // checks if the current spell guarantees a win
+        {
+            s = (char *)malloc(sizeof(dict[t][i]));
+            strcpy(s, dict[t][i]);
+            return s;
+        }
+        pow[i] += evaluate(dict[t][i], reshape_freq(freq, t), dict); // evaluate the spell
+    }
+    int max = 0;
+    for (int i = 0; i < freq[t]; i++) // returns the spell with the highest score
+    {
+        if (pow[i] > pow[max])
+            max = i;
+    }
+    s = (char *)malloc(sizeof(dict[t][max]));
+    strcpy(s, dict[t][max]);
+    return s;
 }
 
 
